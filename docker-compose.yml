@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis/redis-stack
+    container_name: redis-json
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+
+  seeder:
+    build: ./redis/seeder
+    container_name: redis-json-seeder
+    depends_on:
+      - redis
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "4000:4000"
+    depends_on:
+      - product
+      - price
+      - inventory
+
+  product:
+    build: ./services/product
+    ports:
+      - "4001:4001"
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+
+  price:
+    build: ./services/price
+    ports:
+      - "4002:4002"
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+
+  inventory:
+    build: ./services/inventory
+    ports:
+      - "4003:4003"
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis

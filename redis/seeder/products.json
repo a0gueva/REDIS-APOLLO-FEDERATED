@@ -1,0 +1,28 @@
+[
+  {
+    "id": "1",
+    "name": "Product 1",
+    "category": "shoes",
+    "price": {
+      "amount": 99.99,
+      "currency": "USD"
+    },
+    "inventory": {
+      "count": 10,
+      "warehouse": "A1"
+    }
+  },
+  {
+    "id": "2",
+    "name": "Product 2",
+    "category": "shirts",
+    "price": {
+      "amount": 49.99,
+      "currency": "USD"
+    },
+    "inventory": {
+      "count": 5,
+      "warehouse": "B2"
+    }
+  }
+]
