@@ -1,0 +1,17 @@
+subgraphs:
+  gateway:
+    routing_url: http://gateway:4000
+    schema:
+      file: ./schema.graphql
+  product:
+    routing_url: http://product:4001
+    schema:
+      file: ../services/product/schema.graphql
+  price:
+    routing_url: http://price:4002
+    schema:
+      file: ../services/price/schema.graphql
+  inventory:
+    routing_url: http://inventory:4003
+    schema:
+      file: ../services/inventory/schema.graphql

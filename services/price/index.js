@@ -1,25 +1,12 @@
 const { ApolloServer } = require('@apollo/server')
 const { startStandaloneServer } = require('@apollo/server/standalone')
 const { buildSubgraphSchema } = require('@apollo/subgraph')
-const { gql } = require('graphql-tag')
+const { readFileSync } = require('fs')
+const gql = require('graphql-tag')
 const Redis = require('ioredis')
 const redis = new Redis({ host: process.env.REDIS_HOST || 'localhost' })
 
-const typeDefs = gql`
-  extend type Product @key(fields: "id") {
-    id: ID! @external
-    price: Price
-  }
-
-  type Price {
-    amount: Float
-    currency: String
-  }
-
-  type Query {
-    _dummy: String
-  }
-`
+const typeDefs = gql(readFileSync('./schema.graphql', 'utf8'))
 
 const resolvers = {
   Product: {
@@ -38,7 +25,7 @@ const server = new ApolloServer({
 })
 
 startStandaloneServer(server, {
-  listen: { port: 4002 }
+  listen: { port: 4002, host: '0.0.0.0' }
 }).then(({ url }) => {
   console.log(`🚀 price subgraph ready at ${url}`)
 })

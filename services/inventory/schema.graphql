@@ -1,0 +1,13 @@
+extend type Product @key(fields: "id") {
+  id: ID! @external
+  inventory: Inventory
+}
+
+type Inventory {
+  count: Int
+  warehouse: String
+}
+
+type Query {
+  _dummy: String
+}

@@ -1,0 +1,13 @@
+extend type Product @key(fields: "id") {
+  id: ID! @external
+  price: Price
+}
+
+type Price {
+  amount: Float
+  currency: String
+}
+
+type Query {
+  _dummy: String
+}
